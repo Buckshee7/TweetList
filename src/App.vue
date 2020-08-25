@@ -1,12 +1,15 @@
 <template>
   <div>
+    <h3>Total Likes: {{ totalTweets }}</h3>
     <ul>
-      
+      <tweet-list-item v-for="(tweet, index) in tweets" :key="index" :tweet="tweet"></tweet-list-item>
     </ul>
   </div>
 </template>
 
 <script>
+import TweetListItem from './components/TweetListItem.vue'
+
 export default {
   name: 'app',
   data() {
@@ -38,11 +41,21 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    totalTweets: function(){ 
+      return this.tweets.reduce((accumulator, tweet) => accumulator + tweet.likes, 0)
+    }
+  },
+  components: {
+    'tweet-list-item':TweetListItem
   }
 
 }
 </script>
 
 <style>
-
+ul {
+  display: flex;
+}
 </style>
